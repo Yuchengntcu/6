@@ -1,0 +1,70 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+
+  <script src="https://blocklypro.webduino.io/node_modules/jquery/dist/jquery.min.js?rev=2f6b11a7e914718e0290410e85366fe9"></script>
+  <script src="https://blocklypro.webduino.io/dist/lib/webduino-all-0.4.20.min.js?rev=4426739c00d85325cb2d3d701fa50666"></script>
+  <script src="https://blocklypro.webduino.io/dist/webduino-blockly.min.js?rev=6e074ceb23d12d1f7cf2ec95cd5a4150"></script>
+  <script src="https://blocklypro.webduino.io/dist/lib/firebase.min.js?rev=c0bfd493efd477d098a4ae9e92b13880"></script>
+  <script src="https://blocklypro.webduino.io/dist/lib/runtime.min.js?rev=683a69503433786202911b4d9f766100"></script>
+  <script src="smart.js"></script>
+
+<style>
+
+
+button { 
+  width:100px; 
+  height:100px;
+} 
+</style>
+
+<script type="text/javascript">
+	function goToNewPage()
+{
+	var url = document.getElementById('position').value;
+	if(url != 'none')
+{
+	window.location = url;
+}
+}
+</script>
+</head>
+<body>
+<script>
+var newId="";
+function newSmartId()
+{
+newId = prompt("請輸入SmartDeviceId:");
+
+sessionStorage.setItem("NAME", newId);
+
+boardReady({board: 'Smart', device: newId, transport: 'mqtt'}, function (board) {
+  board.samplingInterval = 50;
+  rgbled = getRGBLedCathode(board, 15, 12, 13);
+  rgbled.setColor('#ff0000');
+});
+}
+
+</script>
+<button onclick="newSmartId();">輸入smartId</button>
+
+<form>
+<select name="position" id="position" accesskey="target">
+<option value='none' selected>請選擇你感興趣的地點</option>
+<option value="p1.html">新豐鄉</option>
+<option value="p2.html">湖口鄉</option>
+<option value="p3.html">新埔鎮</option>
+<option value="p4.html">關西鎮</option>
+<option value="p5.html">尖石鄉</option>
+<option value="p6.html">竹北市</option>
+<option value="p8.html">橫山鄉</option>
+<option value="p9.html">新竹市</option>
+<option value="p10.html">五峰鄉</option>
+<option value="p12.html">北埔鄉</option>
+<br><br>
+<input type="button" value="送出" onclick="goToNewPage();"/>
+</select>
+</form>
+<img src="image/hsinchuMap.jpg"></img>
+</body>
+</html>
